@@ -1,0 +1,24 @@
+Comments:
+// uses two slashes for comments
+
+Print:
+print "Hello, World!"; // Doesn't use brackets for internal things
+
+
+Data Types:
+
+ - Booleans
+true; // Not false
+false; // Not *not* false
+
+ - Numbers
+1234; // An integer
+12.34; // A decimal number
+
+ - Strings
+"Test string";
+""; // Empty string
+"123"; // A string, not a number
+
+ - Nil
+nil; // no value, null
