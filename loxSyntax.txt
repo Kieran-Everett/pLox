@@ -22,3 +22,42 @@ false; // Not *not* false
 
  - Nil
 nil; // no value, null
+
+
+Arithmetic:
+
++
+-
+*
+/
+-negate
+
+
+Comparison and equality:
+
+less < than;
+lessThan <= orEqual;
+greater > than;
+greaterThan >= or Equal;
+
+1 == 2; // false
+"a" != "b"; // true
+
+123 == "123"; // false, values of different types are never equivalent
+
+
+Logical operators: (or how/why you can write python code that reads almost identical to english)
+
+!true; // false
+!false; // true
+
+true and false; // false
+true and true; // true
+false and false; // true
+
+false or false; // false
+true or false; // true
+
+
+Precedence and grouping:
+You can use () to group things and use them like parentheses in maths.
