@@ -61,3 +61,75 @@ true or false; // true
 
 Precedence and grouping:
 You can use () to group things and use them like parentheses in maths.
+
+
+
+Statements
+
+{
+    print "One statement";
+    print "two statements";
+}
+
+
+Variables:
+
+var x = "strings"; // variables are defined with 'var'
+var iAmNill; // an empty variable automatically evaluates to nil
+
+var y = "ahahahaha";
+print y; // "ahahahaha"
+y = "ebebebebebe";
+print y; // "ebebebebebe"
+
+
+
+Control Flow
+
+if (condition) {
+    print "yes";
+} else {
+    print "no";
+}
+
+var a = 1;
+while (a < 10) {
+    print a;
+    a = a + 1;
+}
+
+for (var a = 1; a < 10; a = a + 1) {
+    print a;
+}
+
+
+
+Functions
+
+IAmAFunction(arg1, arg2, arg3);
+IAmAFunction();
+
+fun printSum(a, b) { // functions are defined with 'fun'
+    print a + b;
+    // if there is no return then it returns nil
+}
+
+
+fun addPair(a, b) {
+    return a + b;
+}
+
+fun identity(a) {
+    return a;
+}
+
+print identity(addPair)(1, 2); // prints 3 through magic and unnessisary complexity
+
+
+fun outerFunc() {
+    fun localFunc() {
+        print "I'm local!";
+    }
+
+    localFunc();
+}
