@@ -1,0 +1,43 @@
+The Parts of a Language:
+
+Scanning
+Takes the input and breaks it up into chunks called tokens.
+
+e.g.
+var average=(min+max)/2;
+becomes
+'var' 'average' '=' '(' 'min' '+' 'max' ')' '/' '2' ';'
+
+
+Parsing
+Takes the sequence of tokens and works out what each part means.
+
+
+Static Analysis
+Looks at things like variable scope and what a variable even is.
+
+
+Intermediate representations
+A common interpretation of the langauge which can be used for converting a language to different things.
+
+e.g.
+You could write a compiler in C and want to target x86. It makes an intermediatary that means you can easily port it to a different language or architecture and then mix and match compilers and architectures.
+
+
+Optimisation
+Once it understands what the program means, you can change parts of it to do the same thing but in a more efficient way.
+
+e.g.
+Constant Folding is where you have a complicated equasion that always equals the same thing so (3.14159 * (0.75 / 2) * (0.75 / 2)) always equals 0.4417860938 so you can replace the equasion with the new value to reduce compuation at runtime.
+
+
+Code generation
+Finally, converting the optimised code into machine code or into bytecode.
+
+
+Virtual machine
+If you converted into bytecode then you need to make another program that translates that bytecode into native code for the target architecture. This is essentially using the bytecode as another Intermediate Representation.
+
+
+Runtime
+Finally running the code.
