@@ -13,8 +13,47 @@ class Scanner():
         self.current = 0
         self.line = 1
     
+    # Functions that are called a lot
     def isAtEnd(self):
         return self.current >= len(self.source)
+    
+    def peek(self): # Looks ahead without consuming the character
+        
+        if ( self.isAtEnd() ):
+            return '\0' # needs to be this because its checking for a str not bool
+        
+        return self.source[self.current]
+    
+    def peekNext(self):
+
+        if ( self.isAtEnd() ):
+            return '\0'
+        
+        return self.source[current + 1] # peeks two ahead to skip the decimal without advancing
+    
+    def addToken(self, type, literal=None): # Overloading is neat
+
+        text = self.source[self.start:self.current]
+        self.tokens.append(token(type, text, literal, line))
+    
+    def advance(self):
+
+        self.current += 1
+        return self.source[self.current - 1]
+    
+    # Functions that are for literals and lexemes
+    def number(self):
+
+        while ( self.peek().isnumeric() ):
+            self.advance()
+        
+        if ( peek() == '.' and peekNext().isnumeric() ):
+            self.advance()
+
+            while ( self.peek().isnumeric() ):
+                self.advance()
+        
+        self.addToken(tokenType.TokenType.NUMBER.name, float(self.source[self.start, self.current]))
     
     def string(self):
 
@@ -31,13 +70,6 @@ class Scanner():
 
         value = self.source[start + 1, current - 1]
         self.addToken(tokenType.TokenType.STRING.name, value)
-
-    def peek(self): # Looks ahead without consuming the character
-        
-        if ( self.isAtEnd() ):
-            return '\0' # needs to be this because its checking for a str not bool
-        
-        return self.source[self.current]
     
     def match(self, expected):
         
@@ -48,17 +80,8 @@ class Scanner():
         
         self.current += 1
         return True
-
-    def addToken(self, type, literal=None): # Overloading is neat
-
-        text = self.source[self.start:self.current]
-        self.tokens.append(token(type, text, literal, line))
-
-    def advance(self):
-
-        self.current += 1
-        return self.source[self.current - 1]
     
+    # Functions for main stuff
     def scanToken(self):
         
         c = self.advance()
@@ -108,7 +131,7 @@ class Scanner():
         elif ( c == '/' ): # SLASHes need to be handled differently because they are also used for comments
             if ( self.match('/') ):
                 while ( self.peek() != '\n' and !self.isAtEnd ):
-                    advance()
+                    self.advance()
             else:
                 self.addToken(tokenType.TokenType.SLASH.name)
         
@@ -126,7 +149,10 @@ class Scanner():
             self.string()
 
         else:
-            pLox.Lox.error(line, "Unexpected character.")
+            if ( c.isnumeric() ):
+                number()
+            else:
+                pLox.Lox.error(line, "Unexpected character.")
     
     def scanTokens(self):
         
