@@ -1,5 +1,6 @@
 import token
 import tokenType
+import pLox
 
 class Scanner():
 
@@ -45,6 +46,8 @@ class Scanner():
             addToken(tokenType.TokenType.SEMICOLON.name)
         elif c == '*':
             addToken(tokenType.TokenType.STAR.name)
+        else:
+            pLox.Lox.error(line, "Unexpected character.")
     
     def isAtEnd(self):
         return self.current >= len(self.source)
