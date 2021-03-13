@@ -5,7 +5,17 @@ from scanner import Scanner
 class Lox():
 
     def __init__(self):
-        pass
+        
+        self.hadError = False
+
+    def report(self, line, where, message):
+        
+        print("[line "+ line + "] Error" + where + ": " + message)
+        self.hadError = True
+
+    def error(self, line, message):
+        
+        self.report(line, "", message)
 
     def run(self, source):
         
@@ -23,6 +33,9 @@ class Lox():
         
         self.run(fileBytes)
 
+        if ( self.hadError ):
+            sys.exit(65) # EX_DATAERR (65) User's data is incorrect, not system files
+
     def runPrompt(self):
         
         while True:
@@ -30,12 +43,13 @@ class Lox():
             if ( line == "" ):
                 break
             self.run(line)
+            self.hadError = False:
 
     def main(self):
         
         if ( len(sys.argv) > 2 ): # sys.argv includes the filename in its' first index so it needs to check for the second
             print("Usage: python3 pLox.py [script]")
-            sys.exit(64)
+            sys.exit(64) # EX_USAGE (64) Command was used incorrectly
         elif ( len(sys.argv) == 2 ): # Run from a file
             self.runFile(sys.argv[1])
         else:
