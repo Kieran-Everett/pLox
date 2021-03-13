@@ -133,3 +133,54 @@ fun outerFunc() {
 
     localFunc();
 }
+
+
+
+Classes
+
+class TestClass {
+    method1() { // note the exclusion of 'fun'
+        print "This is the first method";
+    }
+
+    method2() {
+        print "This is the second method";
+    }
+}
+
+var someVariable = TestClass;
+someFunction(TestClass);
+
+var anotherVariable = TestClass();
+print anotherVariable;
+
+
+class Breakfast {
+    serve(who) {
+        print this.meat + this.bread + who
+    }
+}
+
+breakfast.meat = "sausage"; // creates a new property for that object if it doesn't already exist
+breakfast.bread = "bread";
+
+class Breakfast {
+    init(meat, bread) { // automatically called when an ojbect is initialised.
+        this.meat = meat;
+        this.bread = bread;
+    }
+
+    serve(who) {
+        print this.meat + this.bread + who
+    }
+}
+
+
+class Brunch < Breakfast { // inhertits from the Breakfast class, including the init()
+    drink() {
+        print "drink"
+    }
+}
+
+var benedict = Brunch("ham", "Muffin");
+benedict.serve();
