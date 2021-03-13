@@ -1,3 +1,4 @@
 .vscode
+plox/__pycache__
 test.py
 test.lox
