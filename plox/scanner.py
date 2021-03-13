@@ -12,9 +12,26 @@ class Scanner():
         self.start = 0
         self.current = 0
         self.line = 1
-
-        self.isAtEnd = False
     
+    def isAtEnd(self):
+        return self.current >= len(self.source)
+    
+    def string(self):
+
+        while ( self.peek() != '"' and !self.isAtEnd() ):
+            if ( self.peek() == '\n' ):
+                self.line += 1
+                self.advance()
+            
+        if ( self.isAtEnd() ):
+            pLox.Lox.error(line, "Unterminated string.")
+            return
+        
+        self.advance() # The closing "
+
+        value = self.source[start + 1, current - 1]
+        self.addToken(tokenType.TokenType.STRING.name, value)
+
     def peek(self): # Looks ahead without consuming the character
         
         if ( self.isAtEnd() ):
@@ -24,7 +41,7 @@ class Scanner():
     
     def match(self, expected):
         
-        if ( self.isAtEnd ):
+        if ( self.isAtEnd() ):
             return False
         if ( self.source[current] != expected ):
             return False
@@ -90,7 +107,7 @@ class Scanner():
         
         elif ( c == '/' ): # SLASHes need to be handled differently because they are also used for comments
             if ( self.match('/') ):
-                while ( self.peek() != '\n' and !self.isAtEnd() ):
+                while ( self.peek() != '\n' and !self.isAtEnd ):
                     advance()
             else:
                 self.addToken(tokenType.TokenType.SLASH.name)
@@ -104,16 +121,16 @@ class Scanner():
             pass
         elif ( c == '\n' ):
             self.line += 1
+        
+        elif ( c == '"' ):
+            self.string()
 
         else:
             pLox.Lox.error(line, "Unexpected character.")
     
-    def isAtEnd(self):
-        return self.current >= len(self.source)
-    
     def scanTokens(self):
         
-        while ( self.isAtEnd == False ):
+        while ( self.isAtEnd() == False ):
             start = current
             self.scanToken()
         
