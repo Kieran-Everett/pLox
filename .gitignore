@@ -1,4 +1,6 @@
-.vscode
-plox/__pycache__
+testenum.py
 test.py
 test.lox
+.vscode
+plox/__pycache__
+__pycache__
