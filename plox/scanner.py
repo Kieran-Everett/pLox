@@ -15,7 +15,15 @@ class Scanner():
 
         self.isAtEnd = False
     
+    def peek(self): # Looks ahead without consuming the character
+        
+        if ( self.isAtEnd() ):
+            return '\0' # needs to be this because its checking for a str not bool
+        
+        return self.source[self.current]
+    
     def match(self, expected):
+        
         if ( self.isAtEnd ):
             return False
         if ( self.source[current] != expected ):
@@ -60,25 +68,42 @@ class Scanner():
             self.addToken(tokenType.TokenType.STAR.name)
 
         elif ( c == '!' ):
-            if ( match('=') ):
+            if ( self.match('=') ):
                 self.addToken(tokenType.TokenType.BANG_EQUAL.name)
             else:
                 self.addToken(tokenType.TokenType.BANG.name)
         elif ( c == '=' ):
-            if ( match('=') ):
+            if ( self.match('=') ):
                 self.addToken(tokenType.TokenType.EQUAL_EQUAL.name)
             else:
                 self.addToken(tokenType.TokenType.EQUAL.name)
         elif ( c == '<' ):
-            if ( match('=') ):
+            if ( self.match('=') ):
                 self.addToken(tokenType.TokenType.LESS_EQUAL.name)
             else:
                 self.addToken(tokenType.TokenType.LESS.name)
         elif ( c == '>' ):
-            if ( match('=') ):
+            if ( self.match('=') ):
                 self.addToken(tokenType.TokenType.GREATER_EQUAL.name)
             else:
                 self.addToken(tokenType.TokenType.GREATER.name)
+        
+        elif ( c == '/' ): # SLASHes need to be handled differently because they are also used for comments
+            if ( self.match('/') ):
+                while ( self.peek() != '\n' and !self.isAtEnd() ):
+                    advance()
+            else:
+                self.addToken(tokenType.TokenType.SLASH.name)
+        
+        # skipping the rest of the random things
+        elif ( c == ' ' ):
+            pass
+        elif ( c == '\r' ):
+            pass
+        elif ( c == '\t' ):
+            pass
+        elif ( c == '\n' ):
+            self.line += 1
 
         else:
             pLox.Lox.error(line, "Unexpected character.")
