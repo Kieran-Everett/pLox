@@ -1,12 +1,19 @@
 import sys
 
+from scanner import Scanner
+
 class Lox():
 
     def __init__(self):
         pass
 
-    def run(self, toRun):
-        print(toRun)
+    def run(self, source):
+        
+        scanner = Scanner(source)
+        tokens = scanner.scanTokens()
+
+        for token in tokens:
+            print(token)
 
     def runFile(self, path):
         
