@@ -12,6 +12,25 @@ class Scanner():
         self.start = 0
         self.current = 0
         self.line = 1
+
+        self.keywords = {
+            "and": tokenType.TokenType.AND.name,
+            "class": tokenType.TokenType.CLASS.name,
+            "else": tokenType.TokenType.ELSE.name,
+            "false": tokenType.TokenType.FALSE.name,
+            "for": tokenType.TokenType.FOR.name,
+            "fun": tokenType.TokenType.FUN.name,
+            "if": tokenType.TokenType.IF.name,
+            "nil": tokenType.TokenType.NIL.name,
+            "or": tokenType.TokenType.OR.name,
+            "print": tokenType.TokenType.PRINT.name,
+            "return": tokenType.TokenType.RETURN.name,
+            "super": tokenType.TokenType.SUPER.name,
+            "this": tokenType.TokenType.THIS.name,
+            "true": tokenType.TokenType.TRUE.name,
+            "var": tokenType.TokenType.VAR.name,
+            "while": tokenType.TokenType.WHILE.name
+        }
     
     # Functions that are called a lot
     def isAtEnd(self):
@@ -64,7 +83,12 @@ class Scanner():
         while ( self.isAlphaNumeric(self.peek()) ):
             self.advance()
         
-        self.addToken(tokenType.TokenType.IDENTIFIER.name)
+        text = self.source[self.start, self.current]
+        try:
+            type = self.keywords[text]
+        except:
+            type = tokenType.TokenType.IDENTIFIER.name
+        self.addToken(type)
 
     def number(self):
 
@@ -81,7 +105,7 @@ class Scanner():
     
     def string(self):
 
-        while ( self.peek() != '"' and !self.isAtEnd() ):
+        while ( self.peek() != '"' and not(self.isAtEnd()) ):
             if ( self.peek() == '\n' ):
                 self.line += 1
                 self.advance()
@@ -154,7 +178,7 @@ class Scanner():
         
         elif ( c == '/' ): # SLASHes need to be handled differently because they are also used for comments
             if ( self.match('/') ):
-                while ( self.peek() != '\n' and !self.isAtEnd ):
+                while ( self.peek() != '\n' and not(self.isAtEnd) ):
                     self.advance()
             else:
                 self.addToken(tokenType.TokenType.SLASH.name)
@@ -183,7 +207,7 @@ class Scanner():
     def scanTokens(self):
         
         while ( self.isAtEnd() == False ):
-            start = current
+            start = self.current
             self.scanToken()
         
         newToken = token('EOF', "", None, line)
