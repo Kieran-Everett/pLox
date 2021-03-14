@@ -30,6 +30,8 @@ class Lox():
         file = open(path, "rb") # With how python handles this stuff, this bit might need to be re-written so that it normally reads the file and then just appends everything into a string
         fileBytes = file.read()
         file.close()
+
+        fileBytes = fileBytes[2:-1] # Trimming the binary ( b' ' ) bits
         
         self.run(fileBytes)
 
