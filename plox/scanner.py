@@ -42,6 +42,30 @@ class Scanner():
         return self.source[self.current - 1]
     
     # Functions that are for literals and lexemes
+
+    def isAlpha(self, c):
+        # This function is to check to see if something is alpha because default alpha doesn't count '_' as being alpha
+
+        if ( c.isalpha() or c == '_' ):
+            return True
+        else:
+            return False
+        
+    def isAlphaNumeric(self, c):
+        # Similar funciton to the previous but for alphanumeric
+
+        if ( self.isAlpha or c.isnumeric() ):
+            return True
+        else:
+            return False
+
+    def identifier(self):
+        
+        while ( self.isAlphaNumeric(self.peek()) ):
+            self.advance()
+        
+        self.addToken(tokenType.TokenType.IDENTIFIER.name)
+
     def number(self):
 
         while ( self.peek().isnumeric() ):
@@ -149,8 +173,10 @@ class Scanner():
             self.string()
 
         else:
-            if ( c.isnumeric() ):
-                number()
+            if ( c.isnumeric() ): # If it is a number
+                self.number()
+            elif ( self.isAlpha(c) ): # If it is a word
+                self.identifier()
             else:
                 pLox.Lox.error(line, "Unexpected character.")
     
