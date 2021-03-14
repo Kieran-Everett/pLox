@@ -1,6 +1,6 @@
 import sys
 
-from scanner import Scanner
+import scanner
 
 class Lox():
 
@@ -19,8 +19,8 @@ class Lox():
 
     def run(self, source):
         
-        scanner = Scanner(source)
-        tokens = scanner.scanTokens()
+        scanner2 = scanner.Scanner(source)
+        tokens = scanner2.scanTokens()
 
         for token in tokens:
             print(token)
@@ -43,7 +43,7 @@ class Lox():
             if ( line == "" ):
                 break
             self.run(line)
-            self.hadError = False:
+            self.hadError = False
 
     def main(self):
         
