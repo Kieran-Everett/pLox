@@ -210,6 +210,5 @@ class Scanner():
             start = self.current
             self.scanToken()
         
-        newToken = token('EOF', "", None, line)
-        self.tokens.append(newToken.toString())
+        self.tokens.append(token.Token('EOF', "", None, self.line))
         return self.tokens
