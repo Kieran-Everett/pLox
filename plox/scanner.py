@@ -207,8 +207,8 @@ class Scanner():
     def scanTokens(self):
         
         while ( self.isAtEnd() == False ):
-            start = self.current
+            self.start = self.current
             self.scanToken()
         
-        self.tokens.append(token.Token('EOF', "", None, self.line))
+        self.tokens.append(token.Token(tokenType.TokenType.EOF.name, "", "", self.line)) # This might fix some of the issues
         return self.tokens
